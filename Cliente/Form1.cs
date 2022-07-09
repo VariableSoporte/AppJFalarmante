@@ -15,6 +15,41 @@ namespace Cliente
         int lx, ly;
         int sw, sh;
 
+        private const int tamañoGrid = 10;
+        private const int areaMouse = 132;
+        private const int botonIzquierdo = 17;
+        private Rectangle rectanguloGrid;
+
+        protected override void OnSizeChanged (EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            var region = new Region(new Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height));
+            rectanguloGrid = new Rectangle(ClientRectangle.Width - tamañoGrid, ClientRectangle.Height - tamañoGrid, tamañoGrid, tamañoGrid);
+            region.Exclude(rectanguloGrid);
+            panel1.Region = region;
+            Invalidate();   
+        }
+
+        protected override void WndProc(ref Message sms)
+        {
+            switch (sms.Msg)
+            {
+                case areaMouse:
+                    base.WndProc(ref sms);
+                    var RefPoint = PointToClient(new Point(sms.LParam.ToInt32() & 0xffff, sms.LParam.ToInt32() >> 16));
+                    if ( !rectanguloGrid.Contains(RefPoint))
+                    {
+                        break;
+                    }
+                    sms.Result = new IntPtr(botonIzquierdo);
+                    break;
+                default:
+                    base.WndProc(ref sms);
+                    break;
+            }
+        }
+
+
         private void btnMaxMin_Click(object sender, EventArgs e)
         {
             Size = new Size(sw, sh);
@@ -56,9 +91,6 @@ namespace Cliente
         {
             InitializeComponent();
 
-            //comentario
-            //fghjk
-            //mas codigo de mierda 
         }
 
     }
