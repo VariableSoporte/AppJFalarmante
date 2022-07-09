@@ -15,8 +15,11 @@ namespace Cliente
         public Form1()
         {
             InitializeComponent();
+<<<<<<< HEAD
             //comentario
             //fghjkl
+=======
+>>>>>>> 09c4dfdc680022697fe42dab870d8942c90eebe9
         }
     }
 }
