@@ -73,6 +73,8 @@ namespace Cliente
                 
         }
 
+
+
         private void btnMaximizar_Click(object sender, EventArgs e)
         {
             lx = Location.X;
@@ -90,7 +92,7 @@ namespace Cliente
         public Form1()
         {
             InitializeComponent();
-
+            
         }
 
     }
